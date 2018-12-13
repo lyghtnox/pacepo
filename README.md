@@ -31,7 +31,7 @@ Cliquez ensuite ici: https://developers.google.com/calendar/quickstart/python
 
 Cliquez sur "Enable the Google Calendar API"
 
-Entrez un nom de projet bateau on s'en tape
+Créez un nouveau projet (laissez le nom par défault) ou utilisez en un existant.
 
 Téléchargez le fichier credentials.json (cliquez sur "DOWNLOAD CLIENT CONFIGURATION")
 
