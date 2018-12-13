@@ -113,7 +113,7 @@ C:\Users\machin\AppData\Local\Programs\Python\Python36\python.exe
 Personnellement je le fait tourner sur un raspberry pi qui le lance tous les matins.
 
 # Remerciments
-Merci à [@P3t3rPan](https://github.com/P3t3rPan>) pour toute la partie sur Windows.
+Merci à [@P3t3rPan](https://github.com/P3t3rPan) pour toute la partie sur Windows.
 
 # Autre
 Le code est pas ouf je sais j'avais pas le temps je l'améliorerais peut-être plus tard.
