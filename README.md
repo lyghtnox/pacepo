@@ -5,8 +5,6 @@ Ce programme a pour but de synchroniser l'agenda Alcuin des étudiants de l'ESAI
 
 # Setup
 
-Tout ici est décrit sous Linux/Mac. 
-
 Pour windows:
 
 Installez python3.x, cochez "add to PATH" + installez pip via le script https://bootstrap.pypa.io/get-pip.py (qu'il faut exécuter en double cliquant dessus par exemple, après avoir installer python bien sûr:))
@@ -22,7 +20,10 @@ C:\Users\machin\AppData\Local\Programs\Python\Python3x\
 ``
  sont bien dans les variables d'environnement, sinon les ajouter (bien mettre le \ à la fin).
 
-Fin de la config windows :)
+Pour Linux:
+```
+sudo apt install python3
+```
 
 Téléchargez le repository :
 ```
