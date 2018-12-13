@@ -17,17 +17,23 @@ Modifiez ensuite le fichier main.py pour qu'il correspondent à vos besoin (just
 ```
 LOGIN="" <-- Votre identifiant alcuin 
 PASS=""  <-- Votre mot de passe alcuin
-CALENDAR_ID=""  <-- Votre api de calendrier google
+CALENDAR_ID=""  <-- Votre id de calendrier google
 ```
 Pour le calendrier:
 
-Cliquez ici: https://developers.google.com/calendar/quickstart/python
+Allez sur: https://calendar.google.com/
+
+Cliquez sur les 3 points verticaux du calendrier dans lequel vous voulez synchroniser votre agenda (dans la liste des calendriers à gauche) puis sur "Paramètres".
+
+Copiez ensuite l'ID de l'agenda dans le programme python.
+
+Cliquez ensuite ici: https://developers.google.com/calendar/quickstart/python
 
 Cliquez sur "Enable the Google Calendar API"
 
 Entrez un nom de projet bateau on s'en tape
 
-Notez le Client ID dans CALENDAR_ID dans le python et téléchargez le fichier credentials.json (cliquez sur "DOWNLOAD CLIENT CONFIGURATION")
+Téléchargez le fichier credentials.json (cliquez sur "DOWNLOAD CLIENT CONFIGURATION")
 
 Déplacez ensuite credentials.json dans le même dossier que main.py
 
