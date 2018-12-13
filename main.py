@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+
+# Author: Nathaniel Campan
+
 from bs4 import BeautifulSoup
 import requests
 import sys
