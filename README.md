@@ -56,6 +56,7 @@ Pour automatiser, vous pouvez créer une règle cron comme celle la:
 ```
 0 5 * * * /home/pi/alcuin/main.py 7
 ```
+Personnellement je le fait tourner sur un raspberry pi qui le lance tous les matins.
 
 # Autre
 Le code est pas ouf je sais j'avais pas le temps je l'améliorerais peut-être plus tard.
