@@ -10,7 +10,7 @@ Pour windows:
 Installez python3.x, cochez "add to PATH" + installez pip via le script https://bootstrap.pypa.io/get-pip.py (qu'il faut exécuter en double cliquant dessus par exemple, après avoir installer python bien sûr:))
 
 
-Vérifier dans le PATH de Windows (Système->Paramètres système avancés->Variables d'environnement..) que les dossier 
+Vérifier dans le PATH de Windows (Système->Paramètres système avancés->Variables d'environnement..) que les dossiers
 ``
 C:\Users\machin\AppData\Local\Programs\Python\Python3x\Scripts\
 ``
@@ -109,7 +109,7 @@ C:\Users\machin\AppData\Local\Programs\Python\Python36\python.exe
  
 - Dans "Add Arguments" mettez le lien du script main.py suivi de l'argument, genre pour moi :
 ```
-"C:\Users\Pingui\Desktop\pacepo-master\main.py 14"
+"C:\Users\machin\Desktop\pacepo-master\main.py 14"
 ```
 Personnellement je le fait tourner sur un raspberry pi qui le lance tous les matins.
 
