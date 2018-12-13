@@ -23,7 +23,7 @@ Pour le calendrier:
 
 Allez sur: https://calendar.google.com/
 
-Cliquez sur les 3 points verticaux du calendrier dans lequel vous voulez synchroniser votre agenda (dans la liste des calendriers à gauche) puis sur "Paramètres".
+Cliquez sur les 3 points verticaux du calendrier dans lequel vous voulez synchroniser votre agenda (dans la liste des calendriers à gauche) puis sur "Paramètres". Je vous conseille de créer un nouvel agenda ESAIP et de l'utiliser que pour ça, le programme vide le calendrier avant de synchroniser.
 
 Copiez ensuite l'ID de l'agenda dans le programme python.
 
