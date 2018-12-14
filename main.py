@@ -11,7 +11,6 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 import os
-import getopt
 import argparse
 
 #Générez les api google agenda avant toute chose: https://developers.google.com/calendar/quickstart/python
@@ -24,32 +23,26 @@ CALENDAR_ID=""
 def main(argv):
 
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
-    try:
-        opts, args = getopt.getopt(argv, "ho:", ["help", "output="])
-    except getopt.GetoptError:
-        usage()
-        sys.exit(2)
 
-    if len(args) < 1:
-        usage()
-        sys.exit(2)
+    parser = argparse.ArgumentParser(description="Synchronise Alcuin sur Google Agenda")
+    parser.add_argument('days', type=int, help="Nombre de jours a synchroniser")
+    parser.add_argument('-o', '--output', help="Fichier de log")
 
-    for opt, arg in opts:
-        if opt in ("-h", "--help"):
-            usage()
-            sys.exit()
-        elif opt in ("-o", "--output"):
-            sys.stdout = open(arg, 'w+')
+    args = parser.parse_args()
+
+    if args.output:
+        sys.stdout = open(args.output, 'w+')
+
 
     print("[*] Connexion à Alcuin")
     data, session = getInputs("https://esaip.alcuin.com/OpDotNet/Noyau/Login.aspx")
     session = loginAlcuin("https://esaip.alcuin.com/OpDotNet/Noyau/Login.aspx", data, session)  #Connexion successful
     print("[*] Extraction des données et synchronisation sur Google Agenda")
-    for delta in range(int(args[0])):
+    for delta in range(args.days):
         date = datetime.datetime.today() + datetime.timedelta(days=delta)
         print("[*] Synchronisation du {}".format(date.strftime("%d/%m/%Y")))
         cal = retrieveCal("", session, date)
-        rmGoogle(delta)
+        rmGoogle(delta, parser)
         for i in cal:
             calData = extractCalData(i)
             if calData:
@@ -61,7 +54,7 @@ def getInputs(url): #Get the inputs to send back to the login page (Tokens etc)
     s = requests.Session()
     r = s.get(url)
 
-    soup = BeautifulSoup(r.text, "html.parser")
+    soup = BeautifulSoup(r.text, "lxml")
     inputs = soup.find_all("input")
 
     data={}
@@ -102,7 +95,7 @@ def extractCalData(cal):
         [time.append(re.split('H', i)) for i in re.findall('\d\dH\d\d', course)]   #[['08', '15'], ['09', '45']]
         courseSplit = re.split('- ', re.split('\d\dH\d\d', course)[0])
         courseName = courseSplit[1]
-        
+
         if re.search('Examen', courseSplit[0]):
             colorId = '11'
             description = courseSplit[0]
@@ -114,14 +107,14 @@ def extractCalData(cal):
             colorId = '4'
             description = courseSplit[0]
 
-        salle1 = re.sub('[A-Z]+\d$','',  re.split(' ', course)[-2])    #Remove ing3/sep3/...
+        salle1 = re.sub('[A-Z]{2,}\d','',  re.split('\d\dH\d\d', course)[-1])    #Get second part
                 
         if re.search('Amphi A', course):
             salle = 'Amphi A'
         elif re.search('Amphi E', course):
             salle = 'Amphi E'
         else:
-            salle = re.search('[ABCEF]\d+$', salle1).group(0)  #Retrieve classroom
+            salle = re.search('[ABCEF]\d+', salle1).group(0)  #Retrieve classroom
                     
         return(time, salle, courseName, colorId, description)
     except:
@@ -146,9 +139,10 @@ def synchroGoogle(d, time, salle, courseName, colorId, description):
         }
     service.events().insert(calendarId=CALENDAR_ID, body=event).execute()    #Create event
 
-def rmGoogle(delta):
+def rmGoogle(delta, parser):
     store = file.Storage('token.json')
     creds = store.get()
+
     parser = argparse.ArgumentParser(
                 description=__doc__,
                 formatter_class=argparse.RawDescriptionHelpFormatter,
