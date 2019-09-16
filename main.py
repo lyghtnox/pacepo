@@ -54,7 +54,7 @@ def getInputs(url): #Get the inputs to send back to the login page (Tokens etc)
     s = requests.Session()
     r = s.get(url)
 
-    soup = BeautifulSoup(r.text, "lxml")
+    soup = BeautifulSoup(r.text, "html.parser")
     inputs = soup.find_all("input")
 
     data={}
