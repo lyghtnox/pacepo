@@ -113,8 +113,10 @@ def extractCalData(cal):
             salle = 'Amphi A'
         elif re.search('Amphi E', course):
             salle = 'Amphi E'
-        else:
+        elif re.search('[ABCEF]\d+', salle1):
             salle = re.search('[ABCEF]\d+', salle1).group(0)  #Retrieve classroom
+        else:   #No classroom
+            salle = 'Non renseigné'
                     
         return(time, salle, courseName, colorId, description)
     except:
