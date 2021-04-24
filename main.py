@@ -89,7 +89,7 @@ def retrieveCal(url, s, d):
 def extractCalData(cal):
     course = cal.get_text() #Retrieve a specific course
     if os.name == 'nt':
-        course = course.encode('iso-8859-1').decode('UTF-8')    #Decode if os is windows
+        course = course..encode('cp1252') .decode('latin9')    #Decode if os is windows
     time = []
     try:
         [time.append(re.split('H', i)) for i in re.findall('\d\dH\d\d', course)]   #[['08', '15'], ['09', '45']]
