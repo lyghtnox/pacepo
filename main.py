@@ -94,18 +94,19 @@ def extractCalData(cal):
     try:
         [time.append(re.split('H', i)) for i in re.findall('\d\dH\d\d', course)]   #[['08', '15'], ['09', '45']]
         courseSplit = re.split('- ', re.split('\d\dH\d\d', course)[0])
+        courseSplit.append(re.split('[A-Z]\d|Amphi', re.split('\d\dH\d\d', course)[2])[0])
         courseName = courseSplit[1]
 
         if re.search('Examen', courseSplit[0]):
             colorId = '11'
-            description = courseSplit[0]
+            description = courseSplit[0] + "\x0a" + courseSplit[2]
         elif re.search('Cours', courseSplit[0]):
             colorId = '5'
-            description = courseSplit[0]
+            description = courseSplit[0] + "\x0a" + courseSplit[2]
         else:
             courseName = '{} - {}'.format(courseSplit[0], courseName)
             colorId = '4'
-            description = courseSplit[0]
+            description = courseSplit[0] + "\x0a" + courseSplit[2]
 
         salle1 = re.sub('[A-Z]{2,}\d','',  re.split('\d\dH\d\d', course)[-1])    #Get second part
                 
