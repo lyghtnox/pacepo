@@ -27,7 +27,8 @@ def main(argv):
     parser = argparse.ArgumentParser(description="Synchronise Alcuin sur Google Agenda")
     parser.add_argument('days', type=int, help="Nombre de jours a synchroniser")
     parser.add_argument('-o', '--output', help="Fichier de log")
-
+    parser.add_argument('date', type=int, nargs='?', const=0, default=0, help="Nombre de jours depuis lequel on synchronise")
+    
     args = parser.parse_args()
 
     if args.output:
@@ -39,10 +40,11 @@ def main(argv):
     session = loginAlcuin("https://esaip.alcuin.com/OpDotNet/Noyau/Login.aspx", data, session)  #Connexion successful
     print("[*] Extraction des données et synchronisation sur Google Agenda")
     for delta in range(args.days):
-        date = datetime.datetime.today() + datetime.timedelta(days=delta)
+        datefrom = datetime.datetime.today() + datetime.timedelta(args.date)
+        date = datefrom + datetime.timedelta(days=delta)
         print("[*] Synchronisation du {}".format(date.strftime("%d/%m/%Y")))
         cal = retrieveCal("", session, date)
-        rmGoogle(delta, parser)
+        rmGoogle(delta, parser, args.date)
         for i in cal:
             calData = extractCalData(i)
             if calData:
@@ -141,7 +143,7 @@ def synchroGoogle(d, time, salle, courseName, colorId, description):
         }
     service.events().insert(calendarId=CALENDAR_ID, body=event).execute()    #Create event
 
-def rmGoogle(delta, parser):
+def rmGoogle(delta, parser, date):
     store = file.Storage('token.json')
     creds = store.get()
 
@@ -155,8 +157,9 @@ def rmGoogle(delta, parser):
         creds = tools.run_flow(flow, store, flags)
     service = build('calendar', 'v3', http=creds.authorize(Http()))
     
-    now = datetime.datetime.utcnow().replace(hour=1, minute=0) + datetime.timedelta(days=delta)  # 'Z' indicates UTC time
-    tomorrow = datetime.datetime.utcnow().replace(hour=1, minute=0) + datetime.timedelta(days=delta+1)
+    nowfrom = datetime.datetime.utcnow().replace(hour=1, minute=0) + datetime.timedelta(date)
+    now = nowfrom + datetime.timedelta(days=delta)
+    tomorrow = nowfrom + datetime.timedelta(days=delta+1)
     events_result = service.events().list(calendarId=CALENDAR_ID,    #List every events of the day
                                           timeMin=now.isoformat() + 'Z',
                                           timeMax=tomorrow.isoformat() + 'Z',
