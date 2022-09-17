@@ -1,0 +1,7 @@
+CONNEXIONBDD = "[*] Connecté à la BDD"
+CONNEXIONALCUIN = "[*] Connexion à Alcuin"
+CONNEXIONALCUINOK = "[+] Connexion à Alcuin OK"
+CONNEXIONALCUINNOK = "[-] Connexion à Alcuin NOK"
+EXTRACTNOTES = "[*] Extraction des notes"
+EXTRACTMOYENNE = "[*] Extraction de la moyenne"
+EXTRACTMATIERE = "[*] Extraction des matières"
