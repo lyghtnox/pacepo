@@ -1,0 +1,9 @@
+main.py
+FichePrésence-IRA4.pdf
+geckodriver
+geckodriver.log
+credentials.json
+.python-version
+secret.py
+__pycache__/
+.vscode/
